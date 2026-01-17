@@ -12,11 +12,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            artifact_name: xshot-linux
-            asset_name: xshot-test
+            artifact_name: xshot_linux
+            asset_name: xshot_test
           - os: windows-latest
-            artifact_name: xshot-windows
-            asset_name: xshot-test.exe
+            artifact_name: xshot_windows
+            asset_name: xshot_test.exe
 
     steps:
     - name: Checkout code
