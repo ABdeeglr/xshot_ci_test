@@ -1,0 +1,35 @@
+name: Cross-Platform Build
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact_name: xshot-linux
+            asset_name: xshot-test
+          - os: windows-latest
+            artifact_name: xshot-windows
+            asset_name: xshot-test.exe
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Build
+      run: cargo build --release
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.artifact_name }}
+        path: target/release/${{ matrix.asset_name }}
